@@ -12,6 +12,8 @@ currentWeight = currentWeight*4
 to
 currentWeight = currentWeight*5
 
+Make sure you will start this script after trew_hud_ui
+
 I hope you will understand how to do it. 
 
 This is my first time i public a script
