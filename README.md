@@ -8,9 +8,9 @@ line 43, 44 is to make the weight from 0-25 to 0-100
 If you have set the maximum player's weight to 25 (25000g) you dont need to change anything.
 If you have it to 20 (20000g) you must change the line 43
 from:
-currentWeight = currentWeight*4
+currentWeight = currentWeight * 4
 to
-currentWeight = currentWeight*5
+currentWeight = currentWeight * 5
 
 Make sure you will start this script after trew_hud_ui
 
