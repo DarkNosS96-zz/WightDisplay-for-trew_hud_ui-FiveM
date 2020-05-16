@@ -12,40 +12,13 @@ Citizen.CreateThread(function()
     ESX.PlayerData = ESX.GetPlayerData()
 end)
  
-
-AddEventHandler('playerSpawned', function()
-	ESX.PlayerData = ESX.GetPlayerData()
-	for k,v in ipairs(ESX.PlayerData.inventory) do
-		if v.count > 0 then
-			currentWeight = currentWeight + (v.weight * v.count)
-		end
-	end
-	exports.trew_hud_ui:setStatus({
-        name = 'weight',
-        value = (currentWeight / maxWeight) * 100
-    });
-end)
-
-RegisterNetEvent('esx:setJob')
-AddEventHandler('esx:setJob', function(job)
-	ESX.PlayerData = ESX.GetPlayerData()
-	for k,v in ipairs(ESX.PlayerData.inventory) do
-		if v.count > 0 then
-			currentWeight = currentWeight + (v.weight * v.count)
-		end
-	end
-	exports.trew_hud_ui:setStatus({
-        name = 'weight',
-        value = (currentWeight / maxWeight) * 100
-    });
-end)
-
 RegisterNetEvent('esx:removeInventoryItem')
 AddEventHandler('esx:removeInventoryItem', function(item, count)
 	ESX.PlayerData = ESX.GetPlayerData()
+	currentWeight = 0
 	for k,v in ipairs(ESX.PlayerData.inventory) do
 		if v.count > 0 then
-			currentWeight = (v.weight * v.count)
+			currentWeight = currentWeight + (v.weight * v.count)
 		end
 	end
 	exports.trew_hud_ui:setStatus({
@@ -57,6 +30,7 @@ end)
 RegisterNetEvent('esx:addInventoryItem')
 AddEventHandler('esx:addInventoryItem', function(item, count)
 	ESX.PlayerData = ESX.GetPlayerData()
+	currentWeight = 0
 	for k,v in ipairs(ESX.PlayerData.inventory) do
 		if v.count > 0 then
 			currentWeight = currentWeight + (v.weight * v.count)
@@ -69,12 +43,47 @@ AddEventHandler('esx:addInventoryItem', function(item, count)
 end)
 
 AddEventHandler('playerSpawned', function()
+Citizen.Wait(1000)
     if WEIGHT_STATUS == false then
         exports.trew_hud_ui:createStatus({
             status = 'weight',
             color = '#865a09',
-            icon = '<i class="fas fa-box-open"></i>'
+            icon = '<i class="fas fa-weight-hanging"></i>'
         });
         WEIGHT_STATUS = true
+		ESX.PlayerData = ESX.GetPlayerData()
+		currentWeight = 0
+		for k,v in ipairs(ESX.PlayerData.inventory) do
+			if v.count > 0 then
+				currentWeight = currentWeight + (v.weight * v.count)
+			end
+		end
+		exports.trew_hud_ui:setStatus({
+			name = 'weight',
+			value = (currentWeight / maxWeight) * 100
+		});
+    end
+end)
+
+AddEventHandler('onResourceStart', function(resourceName)
+Citizen.Wait(1000)
+    if WEIGHT_STATUS == false then
+        exports.trew_hud_ui:createStatus({
+            status = 'weight',
+            color = '#865a09',
+            icon = '<i class="fas fa-weight-hanging"></i>'
+        });
+        WEIGHT_STATUS = true
+		ESX.PlayerData = ESX.GetPlayerData()
+		currentWeight = 0
+		for k,v in ipairs(ESX.PlayerData.inventory) do
+			if v.count > 0 then
+				currentWeight = currentWeight + (v.weight * v.count)
+			end
+		end
+		exports.trew_hud_ui:setStatus({
+			name = 'weight',
+			value = (currentWeight / maxWeight) * 100
+		});
     end
 end)
