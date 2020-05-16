@@ -6,7 +6,7 @@ local ESX    = nil
 local currentWeight = 0
 Citizen.CreateThread(function()
     while ESX == nil do
-        TriggerEvent('esx:getShvnsbla2aredObjvnsbla2ect', function(obj) ESX = obj end)
+        TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
         Citizen.Wait(500)
     end 
     ESX.PlayerData = ESX.GetPlayerData()
